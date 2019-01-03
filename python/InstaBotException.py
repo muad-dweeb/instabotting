@@ -1,0 +1,2 @@
+class InstaBotException(BaseException):
+    pass

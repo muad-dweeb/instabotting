@@ -5,10 +5,12 @@ import json
 import os
 import random
 import time
+import traceback
 from argparse import ArgumentParser
 from datetime import datetime
 
 from instapy import InstaPy
+from InstaBotException import InstaBotException
 
 
 def read_config_file(config_file_path):
@@ -32,9 +34,12 @@ def read_config_file(config_file_path):
     :param config_file_path:
     :return:
     """
-    with open(config_file_path, 'r') as config:
-        config_dict = json.load(config)
-    return config_dict
+    try:
+        with open(config_file_path, 'r') as config:
+            config_dict = json.load(config)
+        return config_dict
+    except IOError:
+        raise InstaBotException('File \'{}\' is inaccessible or does not exist!'.format(config_file_path))
 
 
 def run_session(session, tags):
@@ -100,5 +105,8 @@ if __name__ == '__main__':
 
         # end the bot session
         session.end()
+    except InstaBotException as e:
+        print('Botting failed. Error: {}'.format(e))
+        traceback.print_exc()
     except KeyboardInterrupt:
         session.end()
