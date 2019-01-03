@@ -26,7 +26,8 @@ fi
 echo -e $SEP
 echo "Cloning InstaPy in $path"
 echo
-git clone https://github.com/timgrossmann/InstaPy.git ${path}/InstaPy
+# git clone https://github.com/timgrossmann/InstaPy.git ${path}/InstaPy
+git clone git@github.com:muad-dweeb/InstaPy.git ${path}/InstaPy
 
 echo -e $SEP
 echo "Downloading latest chromedriver"
